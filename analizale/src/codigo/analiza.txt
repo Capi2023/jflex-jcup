@@ -1,0 +1,62 @@
+int main ()
+{
+    fun e (int a, string t, bool k)
+    {
+        if (5 > 7 or n < 8 or 99 > 21)
+            {
+                print("Hola mundo");
+            }
+        elseif (5 > 7 or n < 8 or 99 > 21)
+            {
+                a = t + b - 7 + y / 8 * t;
+            }
+        elseif (5 > 7 or n < 8)
+            {
+                print("a");
+            }
+        else
+            {
+                int tel7 = 8;
+            }
+    } return a
+    
+    if (ff < gg)
+    {
+        do
+        {
+            u = input("Como te llamas: ")int;
+        } while (b > i)
+    }
+
+    do
+    {
+        op = sin(fff);
+    } while (b > i)
+
+    for(int i=2; i <= 12; i++)
+    {
+        print("Hola otro mundo");
+    }
+    switch (a)
+    {
+        default:
+            random(double, a, 99, 100);
+            break;
+        case 7:
+            eso = totime();
+            break;
+        case b:
+            print("Hola otro mundo");
+            break;
+        case j:
+            clear();
+            break;
+        case 3:
+            clear(t,1);
+            break;
+    }
+}
+
+import Eso from Yer,* as Yeer;
+import jalo as Mira;
+import mam;

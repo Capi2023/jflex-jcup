@@ -1,0 +1,224 @@
+package codigo;
+import java_cup.runtime.Symbol;
+
+parser code
+{:
+    private Symbol s;
+    
+    public void syntax_error(Symbol s){
+        this.s = s;
+    }
+
+    public Symbol getS(){
+        return this.s;
+    }
+
+:}
+
+terminal Evaluar, CicloD, CicloF, OtroCasoUlt, OtroCaso, Identificador, 
+    OperadorRelacional, Numero, ERROR, Logico, Comentario, Convertir, Funciones, 
+    Trigonometria, Acceso, Matematico, Leer, Limpia, Etiqueta, Array, 
+    Expresiones, Longitud, Cerrar, Aleatorio, Importar, Imprimir, Excepcion, 
+    EvaluacionLog, Salto, OpListas, Pila, Principal, Cadena, Agrupacion, 
+    TerminarIns, Alias, Seleccionar, Evento, Imagen, Tipo, ComentarioEspecifico, 
+    Desplazamiento, BitAsignacion, Clonacion, Tamano, Elipse, Conjunto, Flujo, 
+    Memoria, Busqueda, Archivo, Concurrencia, Sincronizacion, Mensaje, 
+    Granuladidad, Optur, Dirtur, Pentur, Rellenar, AbriPar, CierraPar, AbriCor, 
+    CierraCor, AbriLla, CierraLla, Literal, Fun, Coma, Incremento, Igual, Suma, 
+    Resta, Por, Dividido, Caso, Desde;
+
+non terminal INICIO, SENTENCIA, PARAMETROS, FUNCION, PARAMETRO, DECLARACION,
+    IF, IFOTROS, IFELSE, IFELSES, ELSE, WRITE, VALORES, CONDICION, CONDICIONES,
+    DO, FOR, FORCONDI, EMPTY, PARAMETROOTRO, CONDICIONESOTRO, SWITCH, CASOS,
+    CASO, DEFAULT, CASOSMAS, CONVERTIR, DECLAVAR, VALORESCON, LIBRERIAS,
+    LIBRERIASMAS, LIBRERIASFINAL, LIBRERIASOTRO, LIBRERIA, LIBRERIASASIGN,
+    OPERACION, OTRAMATE, MATES, LEER, LIMPIAR, LIMPIARMAS, RANDOM, RANDOMOTRO, 
+    TRIGO, HACER, HACERMAS;
+
+start with INICIO;
+
+INICIO ::= 
+    Tipo Principal AbriPar CierraPar AbriLla SENTENCIA CierraLla LIBRERIAS
+;
+
+SENTENCIA ::=
+    FUNCION SENTENCIA | IF SENTENCIA | WRITE SENTENCIA | DO SENTENCIA | 
+    FOR SENTENCIA | SWITCH SENTENCIA | DECLAVAR SENTENCIA | LIMPIAR SENTENCIA | 
+    RANDOM SENTENCIA | HACER SENTENCIA | EMPTY
+;
+
+DECLARACION ::=
+    Identificador | Numero
+;
+
+FUNCION ::=
+    Fun Identificador AbriPar PARAMETROS CierraPar AbriLla SENTENCIA CierraLla 
+    Salto Identificador
+;
+
+PARAMETROS ::=
+    PARAMETRO PARAMETROOTRO | EMPTY
+;
+
+PARAMETROOTRO ::=
+    Coma PARAMETROS | EMPTY
+;
+
+PARAMETRO ::=
+    Tipo Identificador
+;
+
+IF ::=
+    Evaluar AbriPar CONDICIONES CierraPar AbriLla SENTENCIA CierraLla IFOTROS
+;
+
+IFOTROS ::=
+    IFELSES ELSE | ELSE | EMPTY
+;
+
+IFELSES ::=
+    IFELSE | IFELSES IFELSE
+;
+
+IFELSE ::=
+    OtroCaso AbriPar CONDICIONES CierraPar AbriLla SENTENCIA CierraLla
+;
+
+ELSE ::=
+    OtroCasoUlt AbriLla SENTENCIA CierraLla
+;
+
+CONDICIONES ::=
+    CONDICION CONDICIONESOTRO
+;
+
+CONDICIONESOTRO ::=
+    Logico CONDICIONES | EMPTY
+;
+
+CONDICION ::=
+    DECLARACION OperadorRelacional DECLARACION
+;
+
+WRITE ::=
+    Imprimir AbriPar VALORES CierraPar TerminarIns
+;
+
+VALORES ::=
+    Literal | Numero | Identificador
+;
+
+DO ::=
+    CicloD AbriLla SENTENCIA CierraLla CicloD AbriPar CONDICIONES CierraPar
+;
+
+FOR ::=
+    CicloF AbriPar FORCONDI CierraPar AbriLla SENTENCIA CierraLla
+;
+
+FORCONDI ::=
+    Tipo Identificador Igual DECLARACION TerminarIns CONDICION TerminarIns 
+    DECLARACION Incremento
+;
+
+SWITCH ::=
+    Evaluar AbriPar DECLARACION CierraPar AbriLla CASOS CierraLla
+;
+
+CASOS ::=
+    DEFAULT CASOSMAS
+;
+
+CASOSMAS ::=
+    CASO CASOSMAS | EMPTY
+;
+
+DEFAULT ::=
+    Excepcion TerminarIns SENTENCIA Salto TerminarIns
+;
+
+CASO ::=
+    Caso VALORES TerminarIns SENTENCIA Salto TerminarIns
+;
+
+DECLAVAR ::=
+    Tipo Identificador Igual VALORES TerminarIns
+;
+
+CONVERTIR ::=
+    Convertir AbriPar VALORESCON CierraPar TerminarIns
+;
+
+VALORESCON ::=
+    VALORES | EMPTY
+;
+
+LIBRERIAS ::=
+    LIBRERIA LIBRERIAS | EMPTY
+;
+
+LIBRERIA ::=
+    Importar Identificador LIBRERIASMAS LIBRERIASASIGN TerminarIns
+;
+
+LIBRERIASMAS ::=
+    Desde Identificador LIBRERIASOTRO | EMPTY
+;
+
+LIBRERIASOTRO ::=
+    Coma LIBRERIASFINAL | EMPTY
+;
+
+LIBRERIASASIGN ::=
+    Alias Identificador | EMPTY
+;
+
+LIBRERIASFINAL ::=
+    Identificador | Por
+;
+
+OPERACION ::=
+    DECLARACION MATES DECLARACION OTRAMATE TerminarIns
+;
+
+OTRAMATE ::=
+    MATES DECLARACION OTRAMATE | EMPTY
+;
+
+MATES ::=
+    Suma | Resta | Dividido | Por
+;
+
+LEER ::=
+    Leer AbriPar Literal CierraPar Tipo TerminarIns
+;
+
+LIMPIAR ::=
+    Limpia AbriPar LIMPIARMAS CierraPar TerminarIns
+;
+
+LIMPIARMAS ::=
+    DECLARACION Coma DECLARACION | EMPTY
+;
+
+RANDOM ::=
+    Aleatorio AbriPar RANDOMOTRO CierraPar TerminarIns
+;
+
+RANDOMOTRO ::=
+    Tipo Coma Identificador Coma DECLARACION Coma DECLARACION
+;
+
+TRIGO ::=
+    Trigonometria AbriPar DECLARACION CierraPar TerminarIns
+;
+
+HACER ::=
+    Identificador Igual HACERMAS
+;
+
+HACERMAS ::=
+    TRIGO | LEER | OPERACION | CONVERTIR
+;
+
+EMPTY ::= ;
